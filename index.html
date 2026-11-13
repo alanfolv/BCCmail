@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caixa de Entrada</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/mail.png" type="image/png" >
+</head>
+<body>
+
+    <input type="checkbox" id="theme-switcher" style="display: none;">
+    
+    <header class="header-container">
+        <div class="header-left">
+            <button id="menu-toggle" class="icon-btn" aria-label="Menu">
+                <img src="img/menu-lateral.png" alt="Menu" class="menu-icon">
+            </button>
+            <!-- fonte -->
+            <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+            <img src="img/logo-gmail.png" alt="Logotipo do Gmail" class="logo">
+
+            
+        </div>
+        <div class="header-center">
+            <div class="search-bar">
+                <i class="bi bi-search"></i>
+                <input type="text" placeholder="Search mail">
+                <i class="bi bi-sliders"></i>
+            </div>
+        </div>
+        <div class="header-right">
+            <label class="theme-switch" aria-label="Alternar Tema Escuro">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider"></span>
+            </label>
+            <i class="bi bi-question-circle"></i>
+            <i class="bi bi-gear"></i>
+            <i class="bi bi-grid-3x3-gap"></i>
+            <div class="user-avatar"></div>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <nav class="sidebar" id="sidebar">
+            <button class="compose-btn">
+                <img src="img/compose.png" alt="icon compose" class="nav-icon">
+                <span>Compose</span>
+            </button>
+            <ul class="nav-links">
+                <li class="active">
+                    <a href="index.php">
+                        <img src="img/caixa-de-entrada.png" alt="Icon caixa de entarda" class="nav-icon">
+                        <span>Inbox</span>
+                        <span class="badge"></span>
+                    </a>
+                </li>    
+                              
+                <li>
+                    <a href="importantes.php">
+                    <img src="img/estrela.png" alt="icon estrela" class="nav-icon">
+                    <span>Starred</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="enviados.php">
+                    <img src="img/enviados.png" alt="icon enviados" class="nav-icon">
+                    <span>Sent</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="lixeira.php">
+                    <img src="img/lixo.png" alt="icon lixeira" class="nav-icon">
+                    <span>Trash</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="content-area">
+            <p>Carregando caixa de entrada...</p>
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+
+    
+</body>
+</html>
