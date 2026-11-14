@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fazer login</title>
+    <img src="img/logo.png" alt="Logotipo do BCCmail" class="login-logo">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-page">
+
+    <!-- modo escuro/claro -->
+    <div class="login-theme-wrapper">
+        <label class="theme-switch" aria-label="Alternar Tema Escuro">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <main class="login-container">
+        <div class="login-card">
+            <section class="login-intro">
+                <img src="img/logo-gmail.png" alt="Logotipo do BCCmail" class="login-logo">
+                <h1>Fazer login</h1>
+                <p>para continuar no BCCmail</p>
+            </section>
+
+            <section class="login-content">
+                <form action="password.html" method="GET" class="login-form">
+                    <div class="input-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" placeholder="Digite seu e-mail" autocomplete="username" required>
+                    </div>
+                    
+                    <a href="#" class="forgot-link">Esqueceu a senha?</a>
+
+                    <p class="login-info">Não está usando seu computador? Evite salvar seus dados de acesso em dispositivos compartilhados.</p>
+
+                    <div class="login-actions">
+                        <a href="#" class="create-account-link">Criar conta</a>
+                        <button type="submit" class="btn-primary">Avançar</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </main>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -9,4 +9,6 @@
 **Utilização:** Auxiliar um companheiro de equipe.
 }
 
-1. 
+1. 13.11.2026 Gemini 3.6 Flash:
+- Como fazer o menu lateral se contrair para exibir apenas os ícones, igual comportamento do gmail
+**Utilização:** /js/main.js, linhas: 8-16
