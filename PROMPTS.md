@@ -11,4 +11,12 @@
 
 1. 13.11.2026 Gemini 3.6 Flash:
 - Como fazer o menu lateral se contrair para exibir apenas os ícones, igual comportamento do gmail
-**Utilização:** /js/main.js, linhas: 8-16
+**Utilização:** /js/main.js, linhas: 1-14
+
+2. 16.11.2026 GPT 6:
+- Como adicionar a caixa de 'mostrar sua senha' e adicionar a sua função
+**Utilização:** /js/main.js, linhas: 47-55
+
+3. 16.11.2026 GPT 6:
+- Como melhorar a organização e interação dos botões nas telas de autenticação
+**Utilização:** /css/style.css

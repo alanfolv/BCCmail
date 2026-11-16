@@ -14,9 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 
 
-  
-
-    //alternar os temas
+//alternar os temas
     const themeToggle = document.getElementById('theme-toggle');
     const htmlElement = document.documentElement;
 
@@ -44,3 +42,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
    
 });
+
+
+//adicionar função mostrar sua senha
+    const showPassword = document.getElementById('show-password');
+    const passwordInput = document.getElementById('senha');
+
+    if (showPassword && passwordInput) {
+        showPassword.addEventListener('change', function () {
+            passwordInput.type = this.checked ? 'text' : 'password';
+        });
+}
