@@ -11,6 +11,22 @@ document.addEventListener('DOMContentLoaded', () => {
             sidebar.classList.toggle('collapsed');
         }
     });
+
+    const composeBtn = document.querySelector('.compose-btn');
+    const composeModal = document.getElementById('compose-modal');
+    const composeClose = document.getElementById('compose-close');
+
+    if (composeBtn && composeModal) {
+        composeBtn.addEventListener('click', () => {
+            composeModal.style.display = 'flex';
+        });
+    }
+
+    if (composeClose && composeModal) {
+        composeClose.addEventListener('click', () => {
+            composeModal.style.display = 'none';
+        });
+    }
 }
 
 
@@ -21,21 +37,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
         htmlElement.setAttribute('data-theme', 'dark');
-        updateThemeIcon('dark');
+        if (themeToggle) themeToggle.checked = true;
+    } else {
+        htmlElement.removeAttribute('data-theme');
+        if (themeToggle) themeToggle.checked = false;
     }
 
     if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = htmlElement.getAttribute('data-theme');
-            
-            if (currentTheme === 'dark') {
-                htmlElement.removeAttribute('data-theme');
-                localStorage.setItem('theme', 'light');
-                updateThemeIcon('light');
-            } else {
+        themeToggle.addEventListener('change', () => {
+            if (themeToggle.checked) {
                 htmlElement.setAttribute('data-theme', 'dark');
                 localStorage.setItem('theme', 'dark');
-                updateThemeIcon('dark');
+            } else {
+                htmlElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
             }
         });
     }
