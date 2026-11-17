@@ -6,6 +6,8 @@
     <title>Caixa de Entrada</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="img/bccmail_minimal.png" type="image/png" >
+    <!-- fonte -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -16,8 +18,7 @@
             <button id="menu-toggle" class="icon-btn" aria-label="Menu">
                 <img src="img/menu-lateral.png" alt="Menu" class="menu-icon">
             </button>
-            <!-- fonte -->
-            <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+            
             <img src="img/bccmail.png" alt="Logotipo do BCCMail" class="logo">
 
             
@@ -78,8 +79,150 @@
         </nav>
 
         <main class="content-area">
-            <p>Carregando caixa de entrada...</p>
+            <div id="email-list-view" class="view-section">
+                <div class="email-toolbar">
+                    <div class="toolbar-left">
+                        <input type="checkbox" aria-label="Selecionar todos">
+                        <i class="bi bi-chevron-down"></i>
+                        <button class="icon-btn" title="Atualizar"><i class="bi bi-arrow-clockwise"></i></button>
+                        <button class="icon-btn" title="Mais opções"><i class="bi bi-three-dots-vertical"></i></button>
+                    </div>
+                    <div class="toolbar-right">
+                        <span>1-50 de 2.628</span>
+                        <button class="icon-btn" disabled><i class="bi bi-chevron-left"></i></button>
+                        <button class="icon-btn"><i class="bi bi-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="email-list-container">
+                    <table class="email-table">
+                        <tbody>
+                            <tr class="email-item unread" onclick="openEmail('GitHub', 'GitHub Please reset your password', 'Reset your GitHub password GitHub password configuration', '12:43')">
+                                <td class="email-actions" onclick="event.stopPropagation()">
+                                    <input type="checkbox" aria-label="Selecionar e-mail">
+                                    <i class="bi bi-star"></i>
+                                </td>
+                                <td class="email-sender">GitHub</td>
+                                <td class="email-subject-snippet">
+                                    <span class="subject">GitHub Please reset your password</span>
+                                    <span class="snippet"> - Reset your GitHub password GitHub password configuration</span>
+                                </td>
+                                <td class="email-date">12:43</td>
+                            </tr>
+
+                            <tr class="email-item read" onclick="openEmail('Nubank', 'A fatura do seu cartão Nubank está fechada', 'Você pode pagar usando a sua conta.', '01:44')">
+                                <td class="email-actions" onclick="event.stopPropagation()">
+                                    <input type="checkbox" aria-label="Selecionar e-mail">
+                                    <i class="bi bi-star"></i>
+                                </td>
+                                <td class="email-sender">Nubank</td>
+                                <td class="email-subject-snippet">
+                                    <span class="subject">A fatura do seu cartão Nubank está fechada</span>
+                                    <span class="snippet">- Você pode pagar usando a sua conta.</span>
+                                </td>
+                                <td class="email-date">01:44</td>
+                            </tr>
+
+                            <tr class="email-item read" onclick="openEmail('Alisson Borges', 'a data do trabalho eh depois de amanha', 'poo 1', '00:03')">
+                                <td class="email-actions" onclick="event.stopPropagation()">
+                                    <input type="checkbox" aria-label="Selecionar e-mail">
+                                    <i class="bi bi-star"></i>
+                                </td>
+                                <td class="email-sender">Alisson Borges</td>
+                                <td class="email-subject-snippet">
+                                    <span class="subject">a data do trabalho eh depois de amanha</span>
+                                    <span class="snippet">- poo 1</span>
+                                </td>
+                                <td class="email-date">00:03</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- leitura detalhada -->
+            <div id="email-detail-view" class="view-section" style="display: none;">
+                <div class="email-toolbar">
+                    <div class="toolbar-left">
+                        <button class="icon-btn" id="back-to-list" title="Voltar"><i class="bi bi-arrow-left">←</i></button>
+                        <button class="icon-btn" title="Excluir"><i class="bi bi-trash"></i></button>
+                        <button class="icon-btn" title="Marcar como não lida"><i class="bi bi-envelope"></i></button>
+                    </div>
+                    <div class="toolbar-right">
+                        <span>1-50 de 2.619</span>
+                        <button class="icon-btn"><i class="bi bi-chevron-left"></i></button>
+                        <button class="icon-btn"><i class="bi bi-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="email-detail-container">
+                    <h2 id="detail-subject" class="detail-subject">assunto email</h2>
+                    
+                    <div class="detail-header">
+                        <div class="sender-info">
+                            <div class="user-avatar-small"></div>
+                            <div>
+                                <strong id="detail-sender">remetente</strong> 
+                                <span class="sender-email"><contato@exemopl.com></span>
+                            </div>
+                        </div>
+                        <div class="detail-time">
+                            <span id="detail-date">12:43</span>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-reply"></i>
+                            <i class="bi bi-three-dots-vertical"></i>
+                        </div>
+                    </div>
+
+                    <div class="detail-body">
+                        <p id="detail-text">mensagem...</p>
+                    </div>
+
+
+                    <div class="reply-box-actions">
+                        <button class="reply-btn"><i class="bi bi-reply"></i> Reply</button>
+                        <button class="reply-btn"><i class="bi bi-arrow-right"></i> Forward</button>
+                    </div>
+                </div>
+            </div>
+
         </main>
+    </div>
+    <div id="compose-modal" class="compose-modal" style="display: none;">
+        <div class="compose-header">
+            <span>New Message</span>
+            <div class="compose-actions-top">
+                <button class="compose-minimize" aria-label="Minimizar">–</button>
+                <button class="compose-maximize" aria-label="Maximizar">□</button>
+                <button id="compose-close" class="compose-close" aria-label="Fechar">✕</button>
+            </div>
+        </div>
+        <div class="compose-body">
+            <div class="compose-field">
+                <input type="text" placeholder="Recipients">
+                <span class="compose-cc-bcc">Cc Bcc</span>
+            </div>
+            <div class="compose-field">
+                <input type="text" placeholder="Subject">
+            </div>
+            <div class="compose-textarea-container">
+                <textarea placeholder="Body Text"></textarea>
+            </div>
+        </div>
+        <div class="compose-footer">
+            <div class="compose-footer-left">
+                <button class="compose-send-btn">Send</button>
+                <i class="bi bi-type"></i>
+                <i class="bi bi-paperclip"></i>
+                <i class="bi bi-link-45deg"></i>
+                <i class="bi bi-emoji-smile"></i>
+                <i class="bi bi-trash"></i>
+            </div>
+            <div class="compose-footer-right">
+                <i class="bi bi-three-dots-vertical"></i>
+                <i class="bi bi-trash"></i>
+            </div>
+        </div>
     </div>
 
     <script src="js/main.js"></script>
