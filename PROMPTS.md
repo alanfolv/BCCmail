@@ -20,3 +20,11 @@
 3. 16.11.2026 GPT 6:
 - Como melhorar a organização e interação dos botões nas telas de autenticação
 **Utilização:** /css/style.css
+
+4. 17.11.2026 Gemini 3.6 Flash:
+- Qual versão do Bootstrap Icons é melhor usar num clone de emails ?
+**Utilização:** Referente ao refinamento visual e básico
+
+5. 17.11.2026 Gemini 3.6 Flash:
+- Exemplos de e-mails para colocar nas tabelas para testar
+**Utilização:** preenchimento dos dados nas telas do projeto.
