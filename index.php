@@ -4,9 +4,11 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require_once(__DIR__ . "/src/core/Router.php");
-//require_once(__DIR__ . "/core/Database.php");
+require_once(__DIR__ . "/src/core/Database.php");
 
 require_once(__DIR__ . "/src/controllers/AuthController.php");
+require_once(__DIR__ . "/src/controllers/PagesController.php");
+
 /*
 require_once(__DIR__ . "/src/controllers/NavgationAdmController.php");
 require_once(__DIR__ . "/src/controllers/ContentController.php");
@@ -19,11 +21,22 @@ $router = new Router();
 
 // o nome a rota deve estar em minusculo
 
-//get method
+//MINHAS ROTAS GET
 
-$router->get("/",[AuthController::class,"init"]);
+$router->get("/",[PagesController::class,"init"]);
+$router->get("/index",[PagesController::class,"init"]);
 $router->get("/login",[AuthController::class,"login"]);
 $router->get("/signup",[AuthController::class,"signup"]);
+$router->get("/password",[AuthController::class,"password"]);
+$router->get("/enviados",[AuthController::class,"enviados"]);
+$router->get("/importantes",[AuthController::class,"importantes"]);
+$router->get("/lixeira",[AuthController::class,"lixeira"]);
+
+//MINHAS ROTAS POST
+
+
+
+
 
 /*
 $router->get("/dashboard",[NavgationAdmController::class,"dashboard"]);
@@ -48,14 +61,16 @@ $router->post("/deleteplaylist",[PlaylistController::class,"deletePlaylist"]);
 
 
 //testando a conexão
-
+*/
 try{
     $conectInst = new Database();
     $conectInst->getConnection();
-}catch( Exception){
+    echo "<p style='color:green;'>Conexão com o banco de dados: " . DB_NAME . ". </p>";
+
+}catch( Exception $e){
+    echo "<p style='color:red;'>Erro ao conectar com o banco de dados: " . $e->getMessage() . "</p>";
     throw new Exception("Algo deu errado! -  Conexão com o banco NÃO estabelecida");
 }
 
 
-?>*/
 $router->dispach();
