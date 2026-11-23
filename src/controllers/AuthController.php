@@ -46,5 +46,15 @@ class AuthController {
         }
         include $caminho;
     }
+    public function setup(){
+        
+         $caminho = __DIR__ . "/../../configs/setup_database.php";
+    
+        // Teste de diagnóstico:
+        if (!file_exists($caminho)) {
+        throw new Exception("Erro: O PHP não encontrou o arquivo no caminho: " . $caminho);
+        }
+        include $caminho;
+    }
     
 }

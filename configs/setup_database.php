@@ -1,26 +1,13 @@
 <?php
 
-/*
-    * Pelo amor de deus vamos usar isso aqui só como um seeder
-    * inicial. De forma alguma deixar no código em produção, por que
-    * qualquer um que tiver acesso a esse arquivo pode resetar o banco
-    * de dados e dar uma confusão diabólica. Pro futuro, vamos usar 
-    * migrations ou um sistema de seeders mais elaborado, que não
-    * dependa de um arquivo PHP acessível publicamente tipo esse kkkkkkkk
-    * mas enfim, é importante deixar esse pq o index.php depende da tabela adm
-    * e eu mudo muito de computador, então é mais fácil ter esse arquivo
-    * do que ficar recriando a tabela toda hora.
-
-    * obrigado pela atencao
-
-*/ 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
 require_once __DIR__ . '/../src/core/Database.php';
 require_once __DIR__ . '/config.php';
 
-echo "<h2>Verifique se a base já existe nos eu banco de dados: digitalSignage_reestruct</h2>";
+echo "<h2>Verificando banco de dados: " . DB_NAME . "</h2>";
 echo "<h1>Iniciando Setup do Banco de Dados...</h1>";
 
 try {
@@ -28,10 +15,11 @@ try {
     $db = new Database();
     $pdo = $db->getConnection();
 
-    echo "<p style='color:blue;'>Conexão com o banco de dados '" . DB_NAME . "' bem-sucedida.</p>";
+    echo "<p style='color:blue;'>Conexão estabelecida com sucesso.</p>";
 
+    // TABELA DE ADMINISTRADORES
     $sql = "
-CREATE TABLE IF NOT EXISTS adm (
+    CREATE TABLE IF NOT EXISTS adm (
         id INT AUTO_INCREMENT PRIMARY KEY,
         username VARCHAR(50) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL
@@ -40,10 +28,77 @@ CREATE TABLE IF NOT EXISTS adm (
 
     $pdo->exec($sql);
 
-    echo "<p style='color:green;'>Tabelas  criadas com sucesso!</p>";
+
+    // TABELA DE USUÁRIOS
+    $sql = "
+    CREATE TABLE IF NOT EXISTS users (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        birth_date DATE NOT NULL,
+        username VARCHAR(50) NOT NULL UNIQUE,
+        password VARCHAR(255) NOT NULL,
+        cpf VARCHAR(14) UNIQUE,
+        email VARCHAR(150) NOT NULL UNIQUE,
+        adm_code VARCHAR(50)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    ";
+
+    $pdo->exec($sql);
+
+
+    // TABELA DE CHATS
+    $sql = "
+    CREATE TABLE IF NOT EXISTS chats (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    ";
+
+    $pdo->exec($sql);
+
+
+    // TABELA DE EMAILS
+    $sql = "
+    CREATE TABLE IF NOT EXISTS emails (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+
+        from_id INT NOT NULL,
+        to_id INT NOT NULL,
+        chat_id INT NOT NULL,
+
+        subject VARCHAR(255) NOT NULL,
+        body TEXT NOT NULL,
+
+        date DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+        is_read BOOLEAN DEFAULT FALSE,
+
+        CONSTRAINT fk_email_sender
+            FOREIGN KEY (from_id)
+            REFERENCES users(id)
+            ON DELETE CASCADE,
+
+        CONSTRAINT fk_email_receiver
+            FOREIGN KEY (to_id)
+            REFERENCES users(id)
+            ON DELETE CASCADE,
+
+        CONSTRAINT fk_email_chat
+            FOREIGN KEY (chat_id)
+            REFERENCES chats(id)
+            ON DELETE CASCADE
+
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    ";
+
+    $pdo->exec($sql);
+
+
+    echo "<p style='color:green;'>Tabelas criadas com sucesso!</p>";
 
 } catch (PDOException $e) {
 
-    echo "<p style='color:red;'>Erro ao criar a tabela: " . $e->getMessage() . "</p>";
-    echo "<p style='color:orange;'>Isso pode ser normal se a tabela 'adm' já existir no banco de dados.</p>";
+    
+    echo "<p style='color:red;'>Erro ao criar as tabelas: "
+        . htmlspecialchars($e->getMessage()) . "</p>";
 }

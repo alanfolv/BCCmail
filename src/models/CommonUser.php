@@ -61,8 +61,4 @@ class CommonUser extends User {
     public function setEmail($email) {
         $this->email = $email;
     }
-
-    // MUDANÇA 4: O método hashCode() não é mais necessário, 
-    // pois a lógica foi movida para dentro do setPassword().
-    // Isso garante que uma senha nunca seja armazenada sem hash.
 }

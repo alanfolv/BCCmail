@@ -32,6 +32,9 @@ $router->get("/enviados",[AuthController::class,"enviados"]);
 $router->get("/importantes",[AuthController::class,"importantes"]);
 $router->get("/lixeira",[AuthController::class,"lixeira"]);
 
+$router->get("/setup",[AuthController::class,"setup"]);
+
+
 //MINHAS ROTAS POST
 
 
