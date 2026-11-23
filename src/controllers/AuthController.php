@@ -1,22 +1,50 @@
 <?php
+require_once __DIR__ . '/../dao/UserDAO.php';
+require_once __DIR__ . '/../core/Database.php';
+
 
 class AuthController {
     
+    private $connectionInstance;
+    private $pdo;
+
+    public function __construct() {
+        $this->connectionInstance = new Database();
+        $this->pdo = $this->connectionInstance->getConnection();
+
+    }
+
     public function login(){
+        $userDAO = new UserDAO($this->pdo);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             
-            $username = $_POST['username'] ?? '';
+            $email = $_POST['username'] ?? '';
             $password = $_POST['password'] ?? '';
             
-            if ($username === 'admin' && $password === 'senha123') {
-                echo "Login bem-sucedido!";
-                header("Location: /index");
+            if (!($userDAO->authenticate($email, $password)) != null) {
+                // Autenticação bem-sucedida
+
+                session_start();
+                $_SESSION['user_email'] = $email;
+                
+
+
+                header('Location: /');
                 exit();
             } else {
-                echo "Credenciais inválidas. Tente novamente.";
+                // Autenticação falhou
+                $error = "Email ou senha inválidos.";
+                $caminho = __DIR__ . "/../views/login.html";
+    
+                if (!file_exists($caminho)) {
+                    throw new Exception("Erro: O PHP não encontrou o arquivo no caminho: " . $caminho);
+                }
+                include $caminho;
+
             }
-        }
+
+            }
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $caminho = __DIR__ . "/../views/login.html";
     

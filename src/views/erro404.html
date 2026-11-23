@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#10131c" />
+  <title>404 — Página não encontrada</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #10131c;
+      --text: #f4f6fb;
+      --muted: #aab3c5;
+      --blue: #4285f4;
+      --red: #ea4335;
+      --yellow: #fbbc05;
+      --green: #34a853;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      padding: 32px;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 16% 55%, rgba(66,133,244,.13), transparent 30%),
+        radial-gradient(circle at 85% 35%, rgba(138,91,255,.09), transparent 25%),
+        linear-gradient(135deg, #0d111a, #171b27 55%, #10131c);
+    }
+
+    .stars, .stars::before, .stars::after {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      content: "";
+      background-image:
+        radial-gradient(2px 2px at 12% 20%, #74839f 98%, transparent),
+        radial-gradient(2px 2px at 72% 17%, #74839f 98%, transparent),
+        radial-gradient(2px 2px at 88% 68%, #74839f 98%, transparent),
+        radial-gradient(2px 2px at 40% 78%, #74839f 98%, transparent),
+        radial-gradient(2px 2px at 56% 42%, #74839f 98%, transparent);
+      opacity: .45;
+      animation: twinkle 5s ease-in-out infinite alternate;
+    }
+    .stars::before { transform: translate(18px, 12px); opacity: .35; animation-delay: -2s; }
+    .stars::after { transform: translate(-12px, 24px); opacity: .25; animation-delay: -3.5s; }
+
+    .page {
+      width: min(1120px, 100%);
+      display: grid;
+      grid-template-columns: minmax(280px, .9fr) minmax(360px, 1.1fr);
+      align-items: center;
+      gap: clamp(32px, 6vw, 90px);
+      position: relative;
+      z-index: 1;
+    }
+
+    .illustration {
+      width: 100%;
+      max-width: 470px;
+      justify-self: center;
+      filter: drop-shadow(0 30px 45px rgba(0,0,0,.28));
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .content { padding: 16px 0; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: #9fb9e5;
+      font-size: .8rem;
+      font-weight: 750;
+      letter-spacing: .17em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 24px;
+      height: 2px;
+      background: var(--blue);
+      border-radius: 5px;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(6rem, 14vw, 10.5rem);
+      line-height: .95;
+      font-weight: 850;
+      letter-spacing: -.085em;
+    }
+    h1 span:nth-child(1) { color: var(--blue); }
+    h1 span:nth-child(2) { color: var(--red); }
+    h1 span:nth-child(3) { color: var(--yellow); }
+    h2 {
+      margin: 22px 0 12px;
+      font-size: clamp(1.65rem, 3.3vw, 2.5rem);
+      line-height: 1.15;
+      letter-spacing: -.045em;
+    }
+    p {
+      color: var(--muted);
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      line-height: 1.75;
+      max-width: 470px;
+      margin: 0 0 30px;
+    }
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-height: 56px;
+      padding: 0 25px;
+      border-radius: 999px;
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 720;
+      background: linear-gradient(135deg, #4285f4, #2869d8);
+      box-shadow: 0 12px 30px rgba(66,133,244,.24);
+      transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+    }
+    .button:hover { transform: translateY(-3px); box-shadow: 0 17px 34px rgba(66,133,244,.34); filter: brightness(1.08); }
+    .button:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+    .button svg { width: 19px; height: 19px; }
+    .hint { color: #78859c; font-size: .85rem; }
+
+    .cloud { position: absolute; width: 105px; height: 32px; opacity: .16; background: #8795b3; border-radius: 30px; }
+    .cloud::before, .cloud::after { content: ""; position: absolute; background: inherit; border-radius: 50%; }
+    .cloud::before { width: 44px; height: 44px; left: 16px; top: -21px; }
+    .cloud::after { width: 58px; height: 58px; left: 43px; top: -31px; }
+    .cloud.one { top: 14%; left: 7%; }
+    .cloud.two { right: 6%; bottom: 15%; transform: scale(.72); }
+
+    @keyframes float { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-13px) rotate(1deg); } }
+    @keyframes twinkle { from { opacity: .22; } to { opacity: .55; } }
+    @keyframes antenna { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(7deg); } }
+
+    @media (max-width: 760px) {
+      body { overflow: auto; padding: 30px 22px 42px; }
+      .page { grid-template-columns: 1fr; gap: 8px; text-align: center; }
+      .illustration { max-width: 260px; }
+      .content { padding: 0; }
+      .eyebrow { justify-content: center; }
+      p { margin-left: auto; margin-right: auto; }
+      .actions { justify-content: center; }
+      .hint { flex-basis: 100%; }
+      .cloud.one { top: 6%; left: -8%; }
+      .cloud.two { right: -10%; bottom: 6%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="cloud one" aria-hidden="true"></div>
+  <div class="cloud two" aria-hidden="true"></div>
+
+  <main class="page">
+    <svg class="illustration" viewBox="0 0 460 520" role="img" aria-label="Robô simpático sentado e triste porque a página não foi encontrada">
+      <defs>
+        <linearGradient id="robotBody" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#f9fbff" />
+          <stop offset="1" stop-color="#b9c5d9" />
+        </linearGradient>
+        <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#26344b" />
+          <stop offset="1" stop-color="#111a2a" />
+        </linearGradient>
+      </defs>
+      <!-- shadow -->
+      <ellipse cx="225" cy="468" rx="190" ry="24" fill="#050912" opacity=".55" />
+      <!-- antenna -->
+      <g style="transform-origin:220px 112px; animation:antenna 3.4s ease-in-out infinite">
+        <path d="M220 117 L220 76" stroke="#aebbd0" stroke-width="10" stroke-linecap="round" />
+        <circle cx="220" cy="56" r="27" fill="#4285f4" />
+        <path d="M220 29 A27 27 0 0 1 245 47 L220 56 Z" fill="#ea4335" />
+        <path d="M245 47 A27 27 0 0 1 231 81 L220 56 Z" fill="#fbbc05" />
+        <path d="M231 81 A27 27 0 0 1 195 69 L220 56 Z" fill="#34a853" />
+      </g>
+      <!-- head -->
+      <rect x="82" y="111" width="276" height="198" rx="62" fill="url(#robotBody)" stroke="#8291aa" stroke-width="7" />
+      <rect x="101" y="132" width="238" height="156" rx="48" fill="url(#screen)" />
+      <rect x="66" y="164" width="26" height="75" rx="13" fill="#aebbd0" stroke="#71819a" stroke-width="5" />
+      <rect x="348" y="164" width="26" height="75" rx="13" fill="#aebbd0" stroke="#71819a" stroke-width="5" />
+      <!-- sad eyes -->
+      <path d="M157 204 Q171 224 185 204" fill="none" stroke="#f4f7ff" stroke-width="9" stroke-linecap="round" />
+      <path d="M253 204 Q267 224 281 204" fill="none" stroke="#f4f7ff" stroke-width="9" stroke-linecap="round" />
+      <path d="M199 258 Q220 235 241 258" fill="none" stroke="#f4f7ff" stroke-width="9" stroke-linecap="round" />
+      <!-- body -->
+      <path d="M121 305 Q220 278 319 305 L338 421 Q220 452 102 421 Z" fill="url(#robotBody)" stroke="#8291aa" stroke-width="7" />
+      <circle cx="220" cy="360" r="42" fill="#eef3fb" />
+      <path d="M220 320 A40 40 0 0 0 185 340 L220 360 Z" fill="#4285f4" />
+      <path d="M185 340 A40 40 0 0 0 190 390 L220 360 Z" fill="#34a853" />
+      <path d="M190 390 A40 40 0 0 0 258 385 L220 360 Z" fill="#fbbc05" />
+      <path d="M258 385 A40 40 0 0 0 255 340 L220 360 Z" fill="#ea4335" />
+      <!-- arms -->
+      <path d="M111 326 Q64 329 57 376 Q50 416 91 430 L129 399" fill="none" stroke="#aebbd0" stroke-width="35" stroke-linecap="round" />
+      <path d="M329 326 Q376 329 383 376 Q390 416 349 430 L311 399" fill="none" stroke="#aebbd0" stroke-width="35" stroke-linecap="round" />
+      <!-- legs -->
+      <path d="M151 408 Q113 434 111 468 Q109 490 149 490 L191 486 Q205 475 187 455 L181 416" fill="#c5cfdf" stroke="#8291aa" stroke-width="7" />
+      <path d="M289 408 Q327 434 329 468 Q331 490 291 490 L249 486 Q235 475 253 455 L259 416" fill="#c5cfdf" stroke="#8291aa" stroke-width="7" />
+      <!-- small details -->
+      <circle cx="105" cy="294" r="6" fill="#8f9db4" />
+      <circle cx="335" cy="294" r="6" fill="#8f9db4" />
+      <path d="M58 92 l-14 -14 M371 100 l14 -14" stroke="#fbbc05" stroke-width="7" stroke-linecap="round" />
+    </svg>
+
+    <section class="content" aria-labelledby="title">
+      <div class="eyebrow">Erro de navegação</div>
+      <h1 aria-label="Erro 404"><span>4</span><span>0</span><span>4</span></h1>
+      <h2 id="title">Página não encontrada!</h2>
+      <p>Parece que esta página não existe, foi movida ou o endereço foi digitado incorretamente.</p>
+      <div class="actions">
+        <!-- Troque o href pela rota inicial do seu projeto, se necessário. -->
+        <a class="button" href="/" id="homeButton">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M19 12H5m0 0 6-6m-6 6 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          Voltar para o início
+        </a>
+        <span class="hint">Vamos levar você de volta.</span>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

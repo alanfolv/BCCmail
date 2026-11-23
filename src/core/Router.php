@@ -48,7 +48,7 @@ class Router {
 
         }else if ($uri != "/"){
             
-            include __DIR__."/../views/auth/erro404.php";
+            include __DIR__."/../views/erro404.html";
         }
 
     }
