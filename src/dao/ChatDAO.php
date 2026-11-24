@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../models/Chat.php';
+require_once __DIR__ . '/../models/Chats.php';
 require_once __DIR__ . '/EmailDAO.php';
 
 class ChatDAO {
@@ -14,7 +14,7 @@ class ChatDAO {
     }
 
     // CRIAR CHAT
-    public function create(Chat $chat) {
+    public function create(Chats $chat) {
 
         $sql = "INSERT INTO chats (created_at)
                 VALUES (:created_at)";
@@ -42,7 +42,7 @@ class ChatDAO {
             return null;
         }
 
-        $chat = new Chat(
+        $chat = new Chats(
             $data['id'],
             $data['created_at']
         );
@@ -57,40 +57,49 @@ class ChatDAO {
         return $chat;
     }
 
-    // LISTAR CHATS DE UM USUÁRIO
-    public function findByUser($userId) {
 
-        $sql = "
-            SELECT DISTINCT c.*
-            FROM chats c
-            INNER JOIN emails e ON e.chat_id = c.id
-            WHERE e.from_id = :sender
-               OR e.to_id = :receiver
-            ORDER BY c.created_at DESC
-        ";
+public function findByUser($userEmail) {
 
-        $stmt = $this->pdo->prepare($sql);
+    $sql = "
+        SELECT
+            c.id,
+            c.created_at,
+            MAX(e.date) AS last_email_date
 
-        $stmt->execute([
-            ':sender' => $userId,
-            ':receiver' => $userId
-        ]);
+        FROM chats c
 
-        $chats = [];
+        INNER JOIN emails e
+            ON e.chat_id = c.id
 
-        while ($data = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        WHERE e.from_email = :from_email
+           OR e.to_email = :to_email
 
-            $chat = new Chat(
-                $data['id'],
-                $data['created_at']
-            );
+        GROUP BY c.id, c.created_at
 
-            $chats[] = $chat;
-        }
+        ORDER BY last_email_date DESC
+    ";
 
-        return $chats;
+    $stmt = $this->pdo->prepare($sql);
+
+    $stmt->execute([
+        ':from_email' => $userEmail,
+        ':to_email' => $userEmail
+    ]);
+
+    $chats = [];
+
+    while ($data = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+        $chat = new Chats(
+            $data['id'],
+            $data['created_at']
+        );
+
+        $chats[] = $chat;
     }
 
+    return $chats;
+}
     // EXCLUIR CHAT
     public function delete($id) {
 

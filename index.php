@@ -1,4 +1,9 @@
 <?php
+// Inicializar sessão antes de qualquer saída
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -28,14 +33,30 @@ $router->get("/index",[PagesController::class,"init"]);
 $router->get("/login",[AuthController::class,"login"]);
 $router->get("/signup",[AuthController::class,"signup"]);
 $router->get("/password",[AuthController::class,"password"]);
-$router->get("/enviados",[AuthController::class,"enviados"]);
-$router->get("/importantes",[AuthController::class,"importantes"]);
-$router->get("/lixeira",[AuthController::class,"lixeira"]);
+$router->get("/enviados",[PagesController::class,"enviados"]);
+$router->get("/importantes",[PagesController::class,"importantes"]);
+$router->get("/lixeira",[PagesController::class,"lixeira"]);
+
+$router->get("/setup",[AuthController::class,"setup"]);
+
+$router->get("/api/emails",[PagesController::class, "listarEmailsJson"]);
+$router->get("/",[PagesController::class,"init"]);
+$router->get("/index.html",[PagesController::class,"init"]);
+$router->get("/login.html",[AuthController::class,"login"]);
+$router->get("/signup.html",[AuthController::class,"signup"]);
+$router->get("/password.html",[AuthController::class,"password"]);
+$router->get("/enviados.html",[PagesController::class,"enviados"]);
+$router->get("/importantes.html",[PagesController::class,"importantes"]);
+$router->get("/lixeira.html",[PagesController::class,"lixeira"]);
 
 $router->get("/setup",[AuthController::class,"setup"]);
 
 
 //MINHAS ROTAS POST
+
+$router->post("/login",[AuthController::class,"login"]);
+$router->post("/signup",[AuthController::class,"signup"]);
+$router->post("/enviaremail",[PagesController::class,"enviaremail"]);
 
 
 
@@ -65,15 +86,17 @@ $router->post("/deleteplaylist",[PlaylistController::class,"deletePlaylist"]);
 
 //testando a conexão
 */
-try{
+try {
     $conectInst = new Database();
     $conectInst->getConnection();
-    echo "<p style='color:green;'>Conexão com o banco de dados: " . DB_NAME . ". </p>";
 
-}catch( Exception $e){
-    echo "<p style='color:red;'>Erro ao conectar com o banco de dados: " . $e->getMessage() . "</p>";
-    throw new Exception("Algo deu errado! -  Conexão com o banco NÃO estabelecida");
+    error_log("Conexão com o banco de dados: " . DB_NAME);
+
+} catch (Exception $e) {
+
+    error_log("Erro ao conectar com o banco: " . $e->getMessage());
+
+    http_response_code(500);
+    exit("Erro ao conectar com o banco de dados.");
 }
-
-
 $router->dispach();

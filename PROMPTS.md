@@ -28,3 +28,11 @@
 5. 17.11.2026 Gemini 3.6 Flash:
 - Exemplos de e-mails para colocar nas tabelas para testar
 **Utilização:** preenchimento dos dados nas telas do projeto.
+
+6. 22.11.2026 Sonnet 5.5:
+- Melhor forma de separar partes de uma tela de cadastro dentro de uma mesma view
+**Utilização:** cadastro.html; /js/main.js, linhas: 101-146
+
+7. 22.11.2026 GPT 6:
+- Como adicionar validação de email para pontos e caracteres especiais e senha para minimo e numero?
+**Utilização:** /js/main.js, linhas: 157-80

@@ -1,6 +1,6 @@
 <?php
 
-class Chat {
+class Chats{
     private $id;
     private $emails;
     private $createdAt;

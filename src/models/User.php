@@ -8,7 +8,7 @@
         private $email;
 
 
-        public function __construct($id = null,$name,$birthDate,$username,$password,$email){
+        public function __construct($id = null,$name = null,$birthDate = null,$username= null ,$password =  null,$email= null){
             $this->id = $id;
             $this->name =$name;
             $this->birthDate = $birthDate;

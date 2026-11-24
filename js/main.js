@@ -247,3 +247,104 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
+
+// Tela de cadastro
+const etapasCadastro = document.querySelectorAll(".cadastro-etapa");
+const btnAvancarCadastro = document.getElementById("btn-avancar");
+
+if (btnAvancarCadastro) {
+    const tituloCadastro = document.getElementById("titulo-cadastro");
+    const descricaoCadastro = document.getElementById("descricao-cadastro");
+
+    let etapaAtual = 1;
+
+    const titulos = [
+        "Criar conta",
+        "Informações básicas",
+        "Criar endereço de e-mail",
+        "Criar senha"
+    ];
+
+    const descricoes = [
+        "Digite seu nome e sobrenome",
+        "Informe sua data de nascimento e gênero",
+        "Escolha um endereço de acesso para o BCC-Mail",
+        "Crie uma senha para sua conta com pelo menos 6 caracteres e 1 número"
+    ];
+
+    function mostrarEtapa(numero) {
+        etapasCadastro.forEach((etapa, index) => {
+            etapa.hidden = index + 1 !== numero;
+        });
+
+        tituloCadastro.textContent = titulos[numero - 1];
+        descricaoCadastro.textContent = descricoes[numero - 1];
+
+        btnAvancarCadastro.textContent = numero === 4 ? "Criar conta" : "Avançar";
+        etapaAtual = numero;
+    }
+
+    btnAvancarCadastro.addEventListener("click", function () {
+        const etapa = document.getElementById("etapa-" + etapaAtual);
+        const campos = etapa.querySelectorAll("input, select");
+
+        for (const campo of campos) {
+            if (!campo.checkValidity()) {
+                campo.reportValidity();
+                return;
+            }
+        }
+
+        if (etapaAtual === 3) {
+            const email = document.getElementById("email-cadastro").value;
+
+            if (!/^[a-zA-Z0-9.]+$/.test(email)) {
+                alert("O endereço deve conter apenas letras, números e pontos.");
+                return;
+            }
+        }
+
+        // mínimo 6 caractere, sendo: 1 numero e 1 letra
+        if (etapaAtual === 4) {
+            const senha = document.getElementById("senha-cadastro").value;
+            const confirmar = document.getElementById("confirmar-senha").value;
+                
+            if (senha.length < 6) {
+                alert("A senha deve ter pelo menos 6 caracteres.");
+                return;
+            }
+        
+            if (!/[0-9]/.test(senha)) {
+                alert("A senha deve conter pelo menos 1 número.");
+                return;
+            }
+        
+            if (!/[a-zA-Z]/.test(senha)) {
+                alert("A senha deve conter pelo menos 1 letra.");
+                return;
+            }
+        
+            if (senha !== confirmar) {
+                alert("As senhas não são iguais.");
+                return;
+            }
+        
+            document.getElementById("form-cadastro").requestSubmit();
+            return;
+        }
+
+        mostrarEtapa(etapaAtual + 1);
+    });
+
+    const mostrarSenha = document.getElementById("mostrar-senha");
+
+    if (mostrarSenha) {
+        mostrarSenha.addEventListener("change", function () {
+            const senha = document.getElementById("senha-cadastro");
+            const confirmar = document.getElementById("confirmar-senha");
+
+            senha.type = this.checked ? "text" : "password";
+            confirmar.type = this.checked ? "text" : "password";
+        });
+    }
+}

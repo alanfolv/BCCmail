@@ -7,17 +7,18 @@ class CommonUser extends User {
     private $birthDate;
     private $username;
     private $password; // E AQ GUARDA O HASH
-    private $cpf;
+    private $genero;
     private $email;
-    private $admCode;
+    
 
-    public function __construct($id = null,$name,$birthDate,$username,$password,$email){
+    public function __construct($id = null,$name=null,$birthDate=null,$username=null,$password=null,$email=null,$genero = null){
             $this->id = $id;
             $this->name =$name;
             $this->birthDate = $birthDate;
             $this->username = $username;
             $this->password = $password;
             $this->email = $email;
+            $this->genero = $genero;
         }
 
     // MUDANÇA 3: Getters e Setters para cada propriedade
@@ -53,6 +54,13 @@ class CommonUser extends User {
     public function setPassword($plainPassword) {
         // A senha em texto puro é recebida e o hash é armazenado na propriedade.
         $this->password = password_hash($plainPassword, PASSWORD_DEFAULT);
+    }
+
+    public function getGenero() {
+        return $this->genero;
+    }
+    public function setGenero($genero) {
+        $this->genero = $genero;
     }
 
     public function getEmail() {
