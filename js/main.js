@@ -299,7 +299,7 @@ if (btnAvancarCadastro) {
             const email = document.getElementById("email-cadastro").value;
 
             if (!/^[a-zA-Z0-9.]+$/.test(email)) {
-                alert("O endereço deve conter apenas letras, números e pontos.");
+                campoAlerts.textContent="O endereço deve conter apenas letras, números e pontos.";
                 return;
             }
         }
@@ -307,28 +307,33 @@ if (btnAvancarCadastro) {
         // mínimo 6 caractere, sendo: 1 numero e 1 letra
         if (etapaAtual === 4) {
             const senha = document.getElementById("senha-cadastro").value;
+            const campoAlerts = document.getElementById("alerts");
             const confirmar = document.getElementById("confirmar-senha").value;
-                
-            if (senha.length < 6) {
-                alert("A senha deve ter pelo menos 6 caracteres.");
+
+            const erro = [
+                {
+                    invalida: senha.length < 6,
+                    mensagem: "A senha deve ter pelo menos 6 caracteres."
+                },
+                {
+                    invalida: !/[0-9]/.test(senha),
+                    mensagem: "A senha deve conter pelo menos 1 número."
+                },
+                {
+                    invalida: !/[a-zA-Z]/.test(senha),
+                    mensagem: "A senha deve conter pelo menos 1 letra."
+                },
+                {
+                    invalida: senha !== confirmar,
+                    mensagem: "As senhas não são iguais."
+                }
+            ].find(regra => regra.invalida);
+
+            if (erro) {
+                campoAlerts.textContent = erro.mensagem;
                 return;
             }
-        
-            if (!/[0-9]/.test(senha)) {
-                alert("A senha deve conter pelo menos 1 número.");
-                return;
-            }
-        
-            if (!/[a-zA-Z]/.test(senha)) {
-                alert("A senha deve conter pelo menos 1 letra.");
-                return;
-            }
-        
-            if (senha !== confirmar) {
-                alert("As senhas não são iguais.");
-                return;
-            }
-        
+
             document.getElementById("form-cadastro").requestSubmit();
             return;
         }
@@ -348,3 +353,10 @@ if (btnAvancarCadastro) {
         });
     }
 }
+
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && btnAvancarCadastro) {
+        event.preventDefault();
+        btnAvancarCadastro.click();
+    }
+});
