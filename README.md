@@ -9,18 +9,7 @@
 - O projeto tem como objetivo aplicar conhecimentos de desenvolvimento web, validação de formulários, programação no lado do servidor e armazenamento de dados em banco de dados.
 
 
-## Responsabilidade dos Integrantes
-1. Integrante A - *Alan*
-    - Interface, layout e identidade visual.
-
-2. Integrante B - *Gabriel*
-   - Back-end, banco de dados e autenticação.
-
-3. Integrante C - *Bruno*
-   - Formulários, validações e regras de negócio.
-
-
-## Funcionalidades Principais - BBCmail
+## Funcionalidades Principais - BCCmail
 - Login de usuários por e-mail e senha.
 - Visualização das mensagens recebidas na Caixa de Entrada.
 - Consulta das mensagens enviadas.
@@ -39,3 +28,55 @@ Antes de enviar uma mensagem, o sistema deverá verificar se o endereço de e-ma
 
 **Regra 2: Limite de armazenamento por usuário**
 Cada usuário poderá armazenar no máximo 50 mensagens. Quando estiver próximo desse limite, o sistema deverá exibir um aviso. Ao atingir a quantidade máxima, novos envios serão bloqueados até que o usuário libere espaço, excluindo mensagens e esvaziando a *Lixeira*.
+
+
+## Como executar o projeto
+### Requisitos
+- Docker
+- Docker Compose
+
+### Inicialização
+
+1. Clone o repositório.
+2. Abra a pasta do projeto no terminal.
+3. Execute:
+
+\```bash
+docker compose up --build
+\```
+
+4. Acesse o sistema:
+
+http://localhost:8082
+
+5. Para acessar o phpMyAdmin:
+
+http://localhost:8081
+\```
+
+## Estrutura do Projeto
+
+\```text
+BCCmail/
+├── configs/
+├── css/
+├── img/
+│   └── screenshots/
+├── js/
+├── src/
+│   ├── controllers/
+│   ├── core/
+│   ├── models/
+│   └── views/
+├── Dockerfile
+├── docker-compose.yml
+└── README.md
+\```
+
+## Telas do Projeto
+
+### Login
+![Tela de login](img/screenshots/login.png)
+
+### Caixa de entrada
+![Caixa de entrada](img/screenshots/inbox.png)
