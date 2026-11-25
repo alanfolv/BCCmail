@@ -39,6 +39,7 @@ try {
         password VARCHAR(255) NOT NULL,
         cpf VARCHAR(14) UNIQUE,
         email VARCHAR(150) NOT NULL UNIQUE,
+        genero VARCHAR(30),
         adm_code VARCHAR(50)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
     ";
