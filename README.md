@@ -41,19 +41,19 @@ Cada usuário poderá armazenar no máximo 50 mensagens. Quando estiver próximo
 2. Abra a pasta do projeto no terminal.
 3. Execute:
 
-\```bash
+```bash
 docker compose up -d --build
-\```
+```
 
 4. Acesse primeiro o setup e depois o sistema:
 
 - http://localhost:8082/setup
 - http://localhost:8082/
 
-5. Para acessar o phpMyAdmin:
+5. Para acessar o phpMyAdmin (banco de dados):
 
-http://localhost:8081
-\```
+- http://localhost:8081
+
 
 ## Estrutura do Projeto
 
