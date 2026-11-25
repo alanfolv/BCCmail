@@ -42,12 +42,13 @@ Cada usuário poderá armazenar no máximo 50 mensagens. Quando estiver próximo
 3. Execute:
 
 \```bash
-docker compose up --build
+docker compose up -d --build
 \```
 
-4. Acesse o sistema:
+4. Acesse primeiro o setup e depois o sistema:
 
-http://localhost:8082
+- http://localhost:8082/setup
+- http://localhost:8082/
 
 5. Para acessar o phpMyAdmin:
 
@@ -56,7 +57,7 @@ http://localhost:8081
 
 ## Estrutura do Projeto
 
-\```text
+```text
 BCCmail/
 ├── configs/
 ├── css/
@@ -71,7 +72,7 @@ BCCmail/
 ├── Dockerfile
 ├── docker-compose.yml
 └── README.md
-\```
+```
 
 ## Telas do Projeto
 
@@ -80,3 +81,6 @@ BCCmail/
 
 ### Caixa de entrada
 ![Caixa de entrada](img/screenshots/inbox.png)
+
+### Diagrama Mapa do Site
+![Mapa do Site](img/screenshots/site_map.png)
