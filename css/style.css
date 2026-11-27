@@ -686,9 +686,9 @@ body.login-page {
     width: 100%;
     max-width: 1100px;
     padding: 48px;
-    background-color: #ffffff;
-    border: 1px solid #dadce0;
-    border-radius: 28px;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
 }
 
 .login-card {
@@ -755,6 +755,45 @@ body.login-page {
     color: #5f6368;
     font-size: 14px;
     font-weight: 400;
+}
+
+#alerts {
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+#alerts:empty {
+    display: none;
+}
+
+#alerts:not(:empty) {
+    padding: 10px 12px;
+    border-left: 3px solid #d93025;
+    border-radius: 4px;
+    background-color: #fce8e6;
+    color: #b3261e;
+}
+
+.signup-success {
+    padding: 10px 12px;
+    border-left: 3px solid #28a745;
+    border-radius: 4px;
+    background-color: #d4edda;
+    color: #155724;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.form-error {
+    padding: 10px 12px;
+    border-left: 3px solid #d93025;
+    border-radius: 4px;
+    background-color: #fce8e6;
+    color: #b3261e;
+    font-size: 13px;
+    line-height: 1.5;
 }
 
 .input-group input:not([type="checkbox"]) {
@@ -855,8 +894,8 @@ html[data-theme="dark"] body.login-page {
 }
 
 html[data-theme="dark"] .login-container {
-    background-color: #1e1f20;
-    border-color: #3c4043;
+    background-color: transparent;
+    border: none;
 }
 
 html[data-theme="dark"] .login-header h1,
@@ -868,6 +907,24 @@ html[data-theme="dark"] .login-intro p {
 html[data-theme="dark"] .input-group label,
 html[data-theme="dark"] .login-info {
     color: #c4c7c5;
+}
+
+html[data-theme="dark"] #alerts:not(:empty) {
+    border-left-color: #f28b82;
+    background-color: #3c2321;
+    color: #f2b8b5;
+}
+
+html[data-theme="dark"] .signup-success {
+    border-left-color: #5bd477;
+    background-color: #1c3b28;
+    color: #b7f7c7;
+}
+
+html[data-theme="dark"] .form-error {
+    border-left-color: #f28b82;
+    background-color: #3c2321;
+    color: #f2b8b5;
 }
 
 html[data-theme="dark"] .input-group input:not([type="checkbox"]) {

@@ -28,7 +28,7 @@ $router = new Router();
 
 //MINHAS ROTAS GET
 
-$router->get("/",[PagesController::class,"init"]);
+$router->get("/",[AuthController::class,"login"]);
 $router->get("/index",[PagesController::class,"init"]);
 $router->get("/login",[AuthController::class,"login"]);
 $router->get("/signup",[AuthController::class,"signup"]);
@@ -40,7 +40,6 @@ $router->get("/lixeira",[PagesController::class,"lixeira"]);
 $router->get("/setup",[AuthController::class,"setup"]);
 
 $router->get("/api/emails",[PagesController::class, "listarEmailsJson"]);
-$router->get("/",[PagesController::class,"init"]);
 $router->get("/index.html",[PagesController::class,"init"]);
 $router->get("/login.html",[AuthController::class,"login"]);
 $router->get("/signup.html",[AuthController::class,"signup"]);

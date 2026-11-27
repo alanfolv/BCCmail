@@ -39,7 +39,7 @@ class AuthController {
             $_SESSION['user_name'] = $user->getName();
             $_SESSION['user_email'] = $user->getEmail();
 
-            header('Location: /');
+            header('Location: /index');
             exit();
 
         } else {
@@ -54,6 +54,10 @@ class AuthController {
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+
+        $this->iniciarSessao();
+        $success = $_SESSION['signup_success'] ?? null;
+        unset($_SESSION['signup_success']);
 
         $caminho = __DIR__ . "/../views/login.html";
 
@@ -101,16 +105,8 @@ class AuthController {
             // Persistir no banco
             $userDAO->create($user);
 
-            // Recuperar usuário criado
-            $user = $userDAO->findByEmail($email);
-
-            // Configurar sessão
-            $_SESSION['user_id'] = $user->getId();
-            $_SESSION['user_name'] = $user->getName();
-            $_SESSION['user_email'] = $user->getEmail();
-
-            // Redirecionar
-            header('Location: /');
+            $_SESSION['signup_success'] = 'E-mail cadastrado com sucesso!';
+            header('Location: /login');
             exit();
 
         } else {

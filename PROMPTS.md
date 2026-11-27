@@ -35,4 +35,8 @@
 
 7. 22.11.2026 GPT 6:
 - Como adicionar validação de email para pontos e caracteres especiais e senha para minimo e numero?
-**Utilização:** /js/main.js, linhas: 157-80
+**Utilização:** /js/main.js, linhas: 298-337
+
+8. 24.11.2026 Sonnet 5.5:
+- Como fazer na tela de login o enter avançar para a proxima?
+**Utilização:** /js/main.js, linhas: 357-362
