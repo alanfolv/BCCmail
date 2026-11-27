@@ -21,24 +21,50 @@ class AuthController {
 
 }
 
-    public function login() {
+public function login()
+{
+    $this->iniciarSessao();
+
+    // Se já estiver autenticado, não mostrar o login novamente
+    if (
+        $_SERVER['REQUEST_METHOD'] === 'GET' &&
+        !empty($_SESSION['user_email'])
+    ) {
+        header('Location: /index');
+        exit();
+    }
 
     $userDAO = new UserDAO($this->pdo);
 
+    // ==========================================
+    // AUTENTICAR USUÁRIO
+    // ==========================================
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        $this->iniciarSessao();
-        $email = $_POST['email'] ?? '';
+        $email = trim($_POST['email'] ?? '');
         $password = $_POST['senha'] ?? '';
 
         if ($userDAO->authenticate($email, $password) != null) {
 
             $user = $userDAO->findByEmail($email);
 
+            if (!$user) {
+                $error = "Usuário não encontrado.";
+
+                require __DIR__ . "/../views/login.html";
+                return;
+            }
+
+            // Renovar identificador da sessão
+            session_regenerate_id(true);
+
+            // Armazenar informações do usuário
             $_SESSION['user_id'] = $user->getId();
             $_SESSION['user_name'] = $user->getName();
             $_SESSION['user_email'] = $user->getEmail();
 
+            // Redirecionar para caixa de entrada
             header('Location: /index');
             exit();
 
@@ -46,22 +72,22 @@ class AuthController {
 
             $error = "Email ou senha inválidos.";
 
-            $caminho = __DIR__ . "/../views/login.html";
-
-            include $caminho;
+            require __DIR__ . "/../views/login.html";
             return;
         }
     }
 
+    // ==========================================
+    // EXIBIR LOGIN
+    // ==========================================
+
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-        $this->iniciarSessao();
         $success = $_SESSION['signup_success'] ?? null;
+
         unset($_SESSION['signup_success']);
 
-        $caminho = __DIR__ . "/../views/login.html";
-
-        include $caminho;
+        require __DIR__ . "/../views/login.html";
     }
 }
     

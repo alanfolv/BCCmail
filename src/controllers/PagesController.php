@@ -16,20 +16,22 @@ class PagesController {
     }
     public function init() {
 
-        if (empty($_SESSION['user_email'])) {
-            header('Location: /login');
-            exit();
-        }
+    error_log("========== DEBUG SESSAO ==========");
+    error_log("SESSION ID: " . session_id());
+    error_log("SESSION DATA: " . print_r($_SESSION, true));
+    error_log("=================================");
 
-        $database = new Database();
-        $pdo = $database->getConnection();
-
-        $emailDAO = new EmailDAO($pdo);
-
-        $emails = $emailDAO->findInbox($_SESSION['user_email']);
-
-        require __DIR__ . '/../views/index.html';
+    if (empty($_SESSION['user_email'])) {
+        header('Location: /login');
+        exit();
     }
+
+    $emailDAO = new EmailDAO($this->pdo);
+
+    $emails = $emailDAO->findInbox($_SESSION['user_email']);
+
+    require __DIR__ . '/../views/index.html';
+}
     public function enviaremail()
     {
         // Verificar autenticação
