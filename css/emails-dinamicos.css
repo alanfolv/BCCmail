@@ -1,0 +1,115 @@
+/* Estilos para os e-mails inseridos dinamicamente pelo main.js */
+.email-list-container#emails-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.email-card {
+    display: grid;
+    grid-template-columns: minmax(180px, 230px) minmax(0, 1fr) auto auto;
+    grid-template-areas:
+        "contact subject date favorite"
+        ". preview date favorite";
+    align-items: center;
+    gap: 4px 14px;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--border-color, #e5e7eb);
+    background: var(--surface-color, #fff);
+    cursor: pointer;
+    transition: background-color .15s ease;
+}
+
+.email-card:hover {
+    background: var(--hover-color, #f5f7fa);
+}
+
+.email-contact {
+    grid-area: contact;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.email-subject {
+    grid-area: subject;
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: .95rem;
+    font-weight: 500;
+}
+
+.email-preview {
+    grid-area: preview;
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    color: var(--text-secondary, #6b7280);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: .88rem;
+}
+
+.email-date {
+    grid-area: date;
+    white-space: nowrap;
+    font-size: .8rem;
+}
+
+.favorite-button {
+    grid-area: favorite;
+    border: 0;
+    padding: 5px 8px;
+    background: transparent;
+    color: #d69e00;
+    cursor: pointer;
+    font-size: 1.35rem;
+}
+
+.favorite-button:hover {
+    transform: scale(1.12);
+}
+
+.empty-emails {
+    margin: 0;
+    padding: 36px 20px;
+    color: var(--text-secondary, #6b7280);
+    text-align: center;
+}
+
+.trash-empty-state {
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 36px 20px;
+    color: var(--text-secondary, #6b7280);
+    text-align: center;
+}
+
+.trash-empty-state .bi {
+    font-size: 2.5rem;
+}
+
+.trash-empty-state p {
+    margin: 0;
+}
+
+@media (max-width: 700px) {
+    .email-card {
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+            "contact favorite"
+            "subject date"
+            "preview preview";
+        gap: 5px 10px;
+        padding: 12px;
+    }
+}

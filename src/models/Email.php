@@ -11,17 +11,17 @@ class Email {
     private $chatId;
     private $isFavorite;
 
-    public function __construct(
-        $id = null,
-        $from,
-        $to,
-        $subject,
-        $body,
-        $date = null,
-        $isRead = false,
-        $chatId = null,
-        $isFavorite = false
-    ) {
+public function __construct(
+    $id,
+    $from,
+    $to,
+    $subject,
+    $body,
+    $date,
+    $isRead = false,
+    $chatId = null,
+    $isFavorite = false
+) {
         $this->id = $id;
         $this->from = $from;
         $this->to = $to;

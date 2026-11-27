@@ -50,6 +50,14 @@ $router->get("/lixeira.html",[PagesController::class,"lixeira"]);
 
 $router->get("/setup",[AuthController::class,"setup"]);
 
+$router->get("/api/emails/sent",[PagesController::class,"listarEnviadosJson"]);
+$router->get("/api/emails/favorites",[PagesController::class,"listarFavoritosJson"]);
+$router->post("/api/emails/favorites/add",[PagesController::class,"adicionarFavoritoJson"]);
+$router->post("/api/emails/favorites/remove",[PagesController::class,"removerFavoritoJson"]);
+
+
+
+
 
 //MINHAS ROTAS POST
 
